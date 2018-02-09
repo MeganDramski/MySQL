@@ -1,25 +1,25 @@
-<html>
-<form action="ConnectDatabase.php" method="POST"> 
-<body>
-<div>
-<font size=4>
-<b>
-User_Name:<br /> 
-<input name="User_Name" type="text" />
-<br /> password:<br /> 
-<b>
-<input name="password" type="password" />
-<b>
- <br/> email:<br/> <input name="email" type="text" />
-<b>
-<br /> PayPal:<br /> 
-<b>
-<input name="PayPal" type="text" /><br />
-<b>
- <input type="submit" name ="submit" value "Add"> 
+<?php
 
-</font>
-</div>
-</body>
+$User_Name=$_POST ['User_Name'];
+$password=$_POST ['password'];
+$email=$_POST ['email'];
+$PayPal=$_POST['PayPal'];
 
-</html>
+$con=mysql_connect("localhost","root","");
+if(!$con)
+{
+die('Could not connect:'.mysql_error());
+}
+
+mysql_select_db("podcast",$con);
+
+$query= "INSERT INTO Subscribers(User_Name,password,email,PayPal)VALUES('$User_Name', '$password', '$email', '$PayPal')";
+
+if (!mysql_query($query,$con))
+{
+die('Error in inserting records'.mysql_error);
+}else
+{
+echo "Data Inserted";
+}
+?>
